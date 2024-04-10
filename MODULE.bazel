@@ -1,0 +1,3 @@
+module(name = "bazel-toolchain-version-constraint")
+
+bazel_dep(name = "platforms", version = "0.0.9")
