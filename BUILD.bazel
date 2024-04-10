@@ -1,0 +1,5 @@
+load("//toolchains:defs.bzl", "demo")
+
+demo(
+    name = "demo",
+)
