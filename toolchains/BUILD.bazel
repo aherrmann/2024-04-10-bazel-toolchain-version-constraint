@@ -1,9 +1,10 @@
+load("@bazel_skylib//lib:selects.bzl", "selects")
 load("@bazel_skylib//rules:common_settings.bzl", "string_flag")
 load(":defs.bzl", "demo_toolchain")
 
 string_flag(
     name = "version",
-    values = ["1.0.0", "2.0.0"],
+    values = ["1.0.0", "1.1.0", "2.0.0"],
     build_setting_default = "1.0.0",
 )
 
@@ -15,10 +16,32 @@ config_setting(
 )
 
 config_setting(
+    name = "1.1.0",
+    flag_values = {
+        ":version": "1.1.0",
+    }
+)
+
+selects.config_setting_group(
+    name = "1",
+    match_any = [
+	":1.0.0",
+	":1.1.0",
+    ],
+)
+
+config_setting(
     name = "2.0.0",
     flag_values = {
         ":version": "2.0.0",
     }
+)
+
+selects.config_setting_group(
+    name = "2",
+    match_any = [
+	":2.0.0",
+    ],
 )
 
 toolchain_type(name = "toolchain_type")
