@@ -1,9 +1,21 @@
 load("//toolchains:defs.bzl", "demo")
 
 demo(
-    name = "demo",
+    name = "demo-1",
     target_compatible_with = select({
 	"//toolchains:1": [],
 	"//conditions:default": ["@platforms//:incompatible"],
     }),
+)
+
+demo(
+    name = "demo-2",
+    target_compatible_with = select({
+	"//toolchains:2": [],
+	"//conditions:default": ["@platforms//:incompatible"],
+    }),
+)
+
+demo(
+    name = "demo-all",
 )
