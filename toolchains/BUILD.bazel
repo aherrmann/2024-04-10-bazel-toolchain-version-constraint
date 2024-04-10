@@ -1,4 +1,25 @@
+load("@bazel_skylib//rules:common_settings.bzl", "string_flag")
 load(":defs.bzl", "demo_toolchain")
+
+string_flag(
+    name = "version",
+    values = ["1.0.0", "2.0.0"],
+    build_setting_default = "1.0.0",
+)
+
+config_setting(
+    name = "1.0.0",
+    flag_values = {
+        ":version": "1.0.0",
+    }
+)
+
+config_setting(
+    name = "2.0.0",
+    flag_values = {
+        ":version": "2.0.0",
+    }
+)
 
 toolchain_type(name = "toolchain_type")
 
@@ -19,6 +40,7 @@ toolchain(
 	"@platforms//cpu:x86_64",
 	"@platforms//os:linux",
     ],
+    target_settings = [":1.0.0"],
     toolchain = ":demo-x86_64-linux-x86_64-linux-1.0.0",
     toolchain_type = ":toolchain_type",
 )
@@ -40,6 +62,7 @@ toolchain(
 	"@platforms//cpu:x86_64",
 	"@platforms//os:linux",
     ],
+    target_settings = [":2.0.0"],
     toolchain = ":demo-x86_64-linux-x86_64-linux-2.0.0",
     toolchain_type = ":toolchain_type",
 )
