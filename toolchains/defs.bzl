@@ -57,3 +57,26 @@ demo = rule(
     attrs = {},
     toolchains = ["//toolchains:toolchain_type"],
 )
+
+def _demo_transition_impl(settings, attr):
+    return {
+	"//toolchains:version": attr.version,
+    }
+
+_demo_transition = transition(
+    implementation = _demo_transition_impl,
+    inputs = [],
+    outputs = ["//toolchains:version"],
+)
+
+def _demo_versioned_impl(ctx):
+    return [ctx.attr.actual[0][DefaultInfo]]
+
+demo_versioned = rule(
+    _demo_versioned_impl,
+    attrs = {
+	"actual": attr.label(cfg = _demo_transition, mandatory = True),
+	"version": attr.string(mandatory = True),
+    },
+
+)

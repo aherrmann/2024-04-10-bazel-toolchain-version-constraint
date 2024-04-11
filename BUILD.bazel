@@ -1,4 +1,4 @@
-load("//toolchains:defs.bzl", "demo")
+load("//toolchains:defs.bzl", "demo", "demo_versioned")
 
 demo(
     name = "demo-1",
@@ -18,4 +18,22 @@ demo(
 
 demo(
     name = "demo-all",
+)
+
+demo_versioned(
+    name = "demo-all-1",
+    actual = ":demo-all",
+    version = "1.0.0",
+)
+
+demo_versioned(
+    name = "demo-all-1.1",
+    actual = ":demo-all",
+    version = "1.1.0",
+)
+
+demo_versioned(
+    name = "demo-all-2",
+    actual = ":demo-all",
+    version = "2.0.0",
 )
